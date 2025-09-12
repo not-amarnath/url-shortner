@@ -7,13 +7,16 @@
   external_node_modules = ["express"]
   node_bundler = "esbuild"
 
-
+# This is the correct block for your API proxy rule.
+# It must come BEFORE the general SPA rule.
+[[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 
-
+# This is the catch-all rule for your React app.
+# It should always come last.
 [[redirects]]
   from = "/*"
   to = "/index.html"
