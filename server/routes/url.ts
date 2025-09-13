@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { Url } from "../models/Url";
 import { memoryStorage } from "../storage/memory";
 import shortid from "shortid";
-
+import path from 'path';
 export const shortenUrl: RequestHandler = async (req, res) => {
   try {
     const { originalUrl } = req.body;
@@ -164,7 +164,8 @@ export const redirectUrl: RequestHandler = async (req, res) => {
     }
 
     // URL not found in either storage
-    return res.status(404).json({ error: 'URL not found' });
+    const indexPath = path.resolve(process.cwd(), 'dist/spa/index.html');
+return res.sendFile(indexPath);
   } catch (error) {
     console.error('Error redirecting URL:', error);
     res.status(500).json({ error: 'Internal server error' });
